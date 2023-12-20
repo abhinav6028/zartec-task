@@ -50,8 +50,12 @@ export default function CartItems(props: any) {
                         <div className='w-11/12 lg:w-11/12 md:w-11/12 sm:w-11/12 flex justify-between'>
                             <div className='w-10/12 flex'>
 
-                                <div className={`w-4 lg:w-6 md:w-6 h-4 lg:h-6 md:h-6 border-2 flex justify-center items-center border-${data.dish_Type === 2 ? "red" : "green"}-700`}>
-                                    <div className={`w-2 lg:w-4 md:w-4 h-2 lg:h-4 md:h-4 bg-${data.dish_Type === 1 ? "green" : "red"}-700 rounded-full`}></div>
+                                <div
+                                    style={{ border: `3px solid ${data?.dish_Type == 2 ? "red" : "green"}` }}
+                                    className={`w-4 lg:w-6 md:w-6 h-4 lg:h-6 md:h-6 border-2 flex justify-center items-center border-${data.dish_Type === 2 ? "red" : "green"}-700`}>
+                                    <div
+                                        style={{ background: data?.dish_Type == 2 ? "red" : "green" }}
+                                        className={`w-2 lg:w-4 md:w-4 h-2 lg:h-4 md:h-4 rounded-full`}></div>
                                 </div>
 
                                 <div className='ml-3 lg:ml:6  md:ml-6 sm:ml-4 w-full' >

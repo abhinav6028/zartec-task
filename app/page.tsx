@@ -32,10 +32,11 @@ export default function Home() {
           key={index}
           onClick={() => setTouchedItem(index)}
           className={`lg:w-3/12 md:w-4/12 sm:w-4/12 cursor-pointer flex-shrink-0 flex justify-center py-1.5 px-4 sm:border-b-4 lg:border-b-0 lg:border-solid 
-          border-${index == touchedItem ? "red" : "blue"}-500`
+          border-["red"]-500`
           }
         >
-          <h1 className={`text-${touchedItem == index ? "red" : ''}-500 font-semibold lg:text-1.5xl md:text-1xl sm:text-xl xs:text-sm`}>{data.menu_category}</h1>
+          <h1 style={{ color: touchedItem == index ? "red" : '' }}
+            className={`font-semibold lg:text-1.5xl md:text-1xl sm:text-xl xs:text-sm`}>{data.menu_category}</h1>
         </div>
       ))}
 
