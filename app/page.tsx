@@ -2,10 +2,12 @@
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import CartItems from './Componenets/CartItems';
+import Product from '../components/Product';
 
 export default function Home() {
+
   const [fetchedCategory, setFetchedCategory] = useState<any>(undefined);
+
   const [touchedItem, setTouchedItem] = useState<number | undefined>(0);
 
   useEffect(() => {
@@ -16,11 +18,11 @@ export default function Home() {
 
   console.log("fetchedCategory>>>>>>>>", fetchedCategory);
 
-  // console.log("touchedItem>>>>", touchedItem);
 
   const categoryDishes = fetchedCategory?.filter((data: any, index: any) => touchedItem == index)[0].category_dishes
 
   console.log("categoryDishes", categoryDishes);
+
   console.log(touchedItem);
 
 
@@ -41,7 +43,7 @@ export default function Home() {
       ))}
 
 
-      <CartItems data={categoryDishes} />
+      <Product data={categoryDishes} />
 
 
 

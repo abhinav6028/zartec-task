@@ -2,40 +2,27 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import Header from './Ui/Header'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart, decreaseCart } from '@/redux/cartSlice'
 
-export default function CartItems(props: any) {
+export default function Product(props: any) {
 
     const { data } = props
 
-    var totalItems = 0
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state: any) => state.cart.cartItems);
 
-    if (!Array.isArray(data)) {
-        return null;
-    }
 
-    const [counts, setCounts] = useState(() => Array(data?.length).fill(0));
+    console.log("cartItems", cartItems)
 
-    const handleIncrement = (index: number) => {
-        const newCounts = [...counts];
-        newCounts[index] += 1;
-        setCounts(newCounts);
+
+    const handleIncrement = (product: any) => {
+        dispatch(addToCart(product)); // Pass the entire product object
     };
 
-    const handleDecrement = (index: number) => {
-
-        if (counts[index] > 0) {
-            const newCounts = [...counts];
-            newCounts[index] -= 1;
-            setCounts(newCounts);
-        }
-
+    const handleDecrement = (product: any) => {
+        dispatch(decreaseCart(product));
     };
-
-    console.log("counts", counts);
-
-    counts.map((data) => { totalItems += data })
-
-    console.log("totalItems>>>>>>>>>>>>>>>", totalItems);
 
     return (
 
@@ -44,7 +31,7 @@ export default function CartItems(props: any) {
         <div className='w-screen absolute flex flex-col justify-center overflow-hidden lg:top-32 md:top-32 sm:top-32 top-28'>
 
             {
-                data?.map((data, index) =>
+                data?.map((data: any, index: any) =>
                     <div key={index} className='w-screen flex justify-center mt-4 '>
 
                         <div className='w-11/12 lg:w-11/12 md:w-11/12 sm:w-11/12 flex justify-between'>
@@ -74,11 +61,12 @@ export default function CartItems(props: any) {
                                     <div className='flex my-2.5 lg:my-2 md:my-2 sm:my-2 justify-center  items-center lg:bg-green-600 md:bg-red-400 sm:bg-slate-600 bg-slate-600 w-fit rounded-[20px] '>
 
                                         <h1
-                                            onClick={() => handleDecrement(index)}
+                                            onClick={() => handleDecrement(data)}
                                             className='text-white font-bold lg:text-3xl md:text-3xl mb-.5  md:mb-.5 lg:mb-1 lg:px-4 md:px-2.5 sm:px-2.5 px-2 cursor-pointer'>-</h1>
-                                        <h1 className='text-white font-bold lg:text-2xl md:text-3xl mb-.5 md:mb-.5 lg:mb-1 lg:px-4 md:px-2.5 sm:px-2.5 px-2 cursor-pointer'>{counts[index]}</h1>
+                                        <h1 className='text-white font-bold lg:text-2xl md:text-3xl mb-.5 
+                                        md:mb-.5 lg:mb-1 lg:px-4 md:px-2.5 sm:px-2.5 px-2 cursor-pointer'>{cartItems[index]?.cartQuantity === undefined ? 0 : cartItems[index]?.cartQuantity}</h1>
                                         <h1
-                                            onClick={() => handleIncrement(index)}
+                                            onClick={() => handleIncrement(data)}
                                             className='text-white font-bold lg:text-3xl md:text-3xl mb-.5 md:mb-.5 lg:mb-1 lg:px-4 md:px-2.5 sm:px-2.5 px-2 cursor-pointer'>+</h1>
 
                                     </div>
@@ -112,3 +100,5 @@ export default function CartItems(props: any) {
 
     )
 }
+
+
