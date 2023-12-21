@@ -15,9 +15,14 @@ export default function Product(props: any) {
 
     console.log("cartItems", cartItems)
 
+    const getProductQuantity = (dish_id: number) => {
+        const productInCart = cartItems.find((item: any) => item.dish_id === dish_id);
+        return productInCart ? productInCart.cartQuantity : 0;
+    };
+
 
     const handleIncrement = (product: any) => {
-        dispatch(addToCart(product)); // Pass the entire product object
+        dispatch(addToCart(product)); 
     };
 
     const handleDecrement = (product: any) => {
@@ -64,7 +69,7 @@ export default function Product(props: any) {
                                             onClick={() => handleDecrement(data)}
                                             className='text-white font-bold lg:text-3xl md:text-3xl mb-.5  md:mb-.5 lg:mb-1 lg:px-4 md:px-2.5 sm:px-2.5 px-2 cursor-pointer'>-</h1>
                                         <h1 className='text-white font-bold lg:text-2xl md:text-3xl mb-.5 
-                                        md:mb-.5 lg:mb-1 lg:px-4 md:px-2.5 sm:px-2.5 px-2 cursor-pointer'>{cartItems[index]?.cartQuantity === undefined ? 0 : cartItems[index]?.cartQuantity}</h1>
+                                        md:mb-.5 lg:mb-1 lg:px-4 md:px-2.5 sm:px-2.5 px-2 cursor-pointer'>{getProductQuantity(data.dish_id)}</h1>
                                         <h1
                                             onClick={() => handleIncrement(data)}
                                             className='text-white font-bold lg:text-3xl md:text-3xl mb-.5 md:mb-.5 lg:mb-1 lg:px-4 md:px-2.5 sm:px-2.5 px-2 cursor-pointer'>+</h1>

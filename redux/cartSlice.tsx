@@ -22,14 +22,6 @@ const cartSlice = createSlice({
         state.cartItems.push(tempProduct);
       }
     },
-    removeFromCart: (state, action) => {
-      const nextCartItems = state.cartItems.filter(
-        (cartItem: any) => cartItem.dish_id !== action.payload.dish_id
-      );
-
-      state.cartItems = nextCartItems;
-      localStorage.setItem("cartItems", JSON.stringify(nextCartItems));
-    },
     decreaseCart: (state: any, action: any) => {
       const itemIndex = state.cartItems.findIndex(
         (cartItem: any) => cartItem.dish_id === action.payload.dish_id
@@ -44,28 +36,9 @@ const cartSlice = createSlice({
         state.cartItems = nextCartItems;
       }
     },
-    getTotals: (state: any, action: any) => {
-      let { total, quantity } = state.cartItems.reduce(
-        (cartTotal: any, cartItem: any) => {
-          const { dish_price, cartQuantity } = cartItem;
-          const itemTotal = dish_price * cartQuantity;
-
-          cartTotal.total += itemTotal;
-          cartTotal.quantity += cartQuantity;
-
-          return cartTotal;
-        },
-        {
-          total: 0,
-          quantity: 0,
-        }
-      );
-      state.cartTotalQuantity = quantity;
-      state.cartTotalAmount = total;
-    },
   },
 });
 
-export const { addToCart, removeFromCart, decreaseCart, getTotals } = cartSlice.actions;
+export const { addToCart, decreaseCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
