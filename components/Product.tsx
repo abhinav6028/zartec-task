@@ -22,7 +22,7 @@ export default function Product(props: any) {
 
 
     const handleIncrement = (product: any) => {
-        dispatch(addToCart(product)); 
+        dispatch(addToCart(product));
     };
 
     const handleDecrement = (product: any) => {
